@@ -14,7 +14,7 @@ public class Activity01 extends Activity {
 	// ImageView的alpha值，
 	int image_alpha = 255;
 
-	Handler mHandler = new Handler();
+	Handler mHandler;// = new Handler();
 	// 控件线程
 	boolean isrung = false;
 
@@ -30,12 +30,12 @@ public class Activity01 extends Activity {
 		imageview = (ImageView) this.findViewById(R.id.ImageView01);
 		textview = (TextView) this.findViewById(R.id.TextView01);
 
-		// 设置imageview的图片资源。同样可以再xml布局中像下面这样写
+		// 设置imageview的图片资源。同样可以在xml布局中像下面这样写
 		// android:src="@drawable/logo"
 		imageview.setImageResource(R.drawable.logo);
 
 		// 设置imageview的Alpha值
-		// Tom Xue: 参数为透明度，取值范围为0~255，数值越小越透明
+		// Tom Xue: 参数为透明度，取值范围为0~255，数值越大越透明
 		imageview.setAlpha(image_alpha);
 
 		// 开启一个线程来让Alpha值递减
@@ -61,7 +61,7 @@ public class Activity01 extends Activity {
 				super.handleMessage(msg);
 				imageview.setAlpha(image_alpha);
 				textview.setText("现在alpha值是：" + Integer.toString(image_alpha));
-				// 更新
+				// 更新显示的图片
 				// Tom Xue: Invalidate the whole view. If the view is visible,
 				// onDraw(android.graphics.Canvas) will be called at some point
 				// in the future. This must be called from a UI thread.
@@ -79,7 +79,7 @@ public class Activity01 extends Activity {
 		}
 		// 发送需要更新imageview视图的消息
 		// Tom Xue: Returns a new Message from the global message pool.
-		// so the message is arbitrary
+		// so the message is arbitrary. Just for activating handleMessage()
 		mHandler.sendMessage(mHandler.obtainMessage());
 	}
 }
